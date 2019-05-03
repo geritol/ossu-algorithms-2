@@ -11,7 +11,7 @@ fn main() {
 
     let mut prev_task_length = 0;
     let mut total_completion_time:i64 = 0;
-    for job in jobs.iter(){
+    for job in jobs {
         let curr_task_length = job.get_length();
         let curr_completion_time = job.calculate_weighted_completion_time(prev_task_length);
         prev_task_length += curr_task_length;
