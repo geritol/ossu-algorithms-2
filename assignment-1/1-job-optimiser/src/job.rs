@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Job{
     pub weight: i64,
     pub length: i64,
@@ -17,16 +17,6 @@ impl Job {
         self.weight * (self.length + previous_task_length)
     }
 }
-
-impl PartialEq for Job {
-    fn eq(&self, other: &Job) -> bool {
-        let self_score = self.calculate_weight();
-        let other_score = other.calculate_weight();
-
-        self_score == other_score && self.weight == other.weight
-    }
-}
-impl Eq for Job {}
 
 impl Ord for Job {
     fn cmp(&self, other: &Job) -> Ordering {
@@ -136,7 +126,7 @@ mod test {
         let mut jobs = [job_big, job_small];
         jobs.sort();
         jobs.reverse();
-        
+
         assert_eq!(jobs[0].weight, 3);
     }
 }
