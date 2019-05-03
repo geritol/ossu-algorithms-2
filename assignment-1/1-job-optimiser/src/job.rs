@@ -23,17 +23,10 @@ impl Ord for Job {
         let self_score = self.calculate_weight();
         let other_score = other.calculate_weight();
 
-        if self_score < other_score {
-            Ordering::Less
-        } else if self_score > other_score {
-            Ordering::Greater
-        // Equal score
-        } else if self.weight < other.weight {
-            Ordering::Less
-        } else if self.weight > other.weight {
-            Ordering::Greater
+        if self_score == other_score {
+            self.weight.cmp(&other.weight)
         } else {
-            Ordering::Equal
+            self_score.cmp(&other_score)
         }
     }
 }
