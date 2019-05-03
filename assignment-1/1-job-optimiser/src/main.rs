@@ -29,10 +29,10 @@ fn get_jobs_from_file(file_name: &str) -> Vec<Job> {
             // TODO: allocate space for Jobs of count int(line)
         } else {
             let unwraped_line = line.unwrap();
-            let split: Vec<&str> = unwraped_line.split(" ").collect();
+            let split: Vec<&str> = unwraped_line.split(' ').collect();
             let weight = split[0].parse::<i64>().unwrap();
             let length = split[1].parse::<i64>().unwrap();
-            jobs.push(Job{weight: weight, length: length});
+            jobs.push(Job{weight, length});
         }
     }
     jobs
