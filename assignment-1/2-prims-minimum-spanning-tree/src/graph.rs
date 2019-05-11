@@ -45,10 +45,7 @@ impl Graph {
         for node_index in explored_nodes.iter() {
             let lowest_edge = self.get_copy_of_lowest_edge(node_index);
             if lowest_edge != None {
-                if lowest_cost_edge == None {
-                    lowest_cost_edge = lowest_edge;
-                    lowest_cost_edge_start = Some(*node_index);
-                } else if lowest_edge > lowest_cost_edge {
+                if lowest_cost_edge == None || lowest_edge > lowest_cost_edge {
                     lowest_cost_edge = lowest_edge;
                     lowest_cost_edge_start = Some(*node_index);
                 }
@@ -58,10 +55,10 @@ impl Graph {
     }
 
     fn get_copy_of_lowest_edge(&self, node_index: &i32) -> Option<Edge>{
-        let lowest_edge = self.nodes.get(node_index).unwrap().edges.peek();
+        let lowest_edge = &self.nodes[node_index].edges.peek();
         match lowest_edge {
             None => None,
-            Some(edge) => Some(edge.clone())
+            Some(edge) => Some(**edge)
         }
         
     }
