@@ -32,7 +32,7 @@ impl Graph {
         if result.0 == None {
             return (None, None)
         }
-        &self.nodes.get_mut(&result.0.unwrap()).unwrap().edges.pop();
+        self.nodes.get_mut(&result.0.unwrap()).unwrap().edges.pop();
         if explored_nodes.contains(&result.1.unwrap().target) {
             return self.get_lowest_unvisited_edge(explored_nodes)
         }
