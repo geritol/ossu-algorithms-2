@@ -1,6 +1,6 @@
 use std::cmp::Ordering;
 
-#[derive(Eq, PartialEq, Debug)]
+#[derive(Eq, PartialEq, Clone, Copy, Debug)]
 pub struct Edge {
     pub weight: i32,
     pub target: i32, // Target node's id
