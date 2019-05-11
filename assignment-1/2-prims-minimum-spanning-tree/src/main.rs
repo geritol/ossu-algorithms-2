@@ -1,3 +1,6 @@
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+
 mod edge;
 mod node;
 mod graph;
@@ -6,15 +9,10 @@ use graph::Graph;
 fn main() {
 
     // Build Graph
-    let mut graph = Graph::new();
-    graph.add_edge(1,2,2);
-    graph.add_edge(1,4,-1);
-    graph.add_edge(2,4, 4);
-    graph.add_edge(3,1,3);
-    graph.add_edge(4,3,5);
+    let mut graph = build_graph_from_file("edges.small.txt");
 
     // Call function
-    println!("Hello, world! \n the response is {}", get_mst_length(&mut graph));
+    println!("The response is {}", get_mst_length(&mut graph));
 }
 
 fn get_mst_length(graph: &mut Graph) -> i32{
@@ -31,4 +29,22 @@ fn get_mst_length(graph: &mut Graph) -> i32{
         }
     }
     total_weight
+}
+
+fn build_graph_from_file(file_name: &str) -> Graph{
+    let file = File::open(file_name).expect("Unable to open");
+    let mut graph = Graph::new();
+    for (index, line) in BufReader::new(file).lines().enumerate() {
+        if index == 0 {
+            // TODO: better first line handling
+        } else {
+            let unwrapped_line = line.unwrap();
+            let split: Vec<&str> = unwrapped_line.split(' ').collect();
+            let from = split[0].parse::<i32>().unwrap();
+            let to = split[1].parse::<i32>().unwrap();
+            let weight = split[2].parse::<i32>().unwrap();
+            graph.add_edge(from,to,weight);
+        }
+    }
+    graph
 }
