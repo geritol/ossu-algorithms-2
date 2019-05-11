@@ -18,15 +18,13 @@ fn main() {
 fn get_mst_length(graph: &mut Graph) -> i32{
     let mut visited = vec![1];
     let mut total_weight = 0;
-    let mut go_on = true;
-    while go_on {
+    loop {
         let result = graph.get_lowest_unvisited_edge(&visited);
         if result.0 == None {
-            go_on = false;
-        } else {
-            total_weight += result.1.unwrap().weight;
-            visited.push(result.1.unwrap().target);
+            break;
         }
+        total_weight += result.1.unwrap().weight;
+        visited.push(result.1.unwrap().target);
     }
     total_weight
 }
