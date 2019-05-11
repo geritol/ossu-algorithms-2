@@ -43,7 +43,7 @@ impl Graph {
         let mut lowest_cost_edge: Option<Edge> = None;
         let mut lowest_cost_edge_start: Option<i32> = None;
         for node_index in explored_nodes.iter() {
-            let lowest_edge = self.get_copy_of_lowest_edge(node_index, explored_nodes);
+            let lowest_edge = self.get_copy_of_lowest_edge(node_index);
             if lowest_edge != None {
                 if lowest_cost_edge == None {
                     lowest_cost_edge = lowest_edge;
@@ -57,7 +57,7 @@ impl Graph {
         (lowest_cost_edge_start ,lowest_cost_edge)
     }
 
-    fn get_copy_of_lowest_edge(&self, node_index: &i32, explored_nodes: &Vec<i32>) -> Option<Edge>{
+    fn get_copy_of_lowest_edge(&self, node_index: &i32) -> Option<Edge>{
         let lowest_edge = self.nodes.get(node_index).unwrap().edges.peek();
         match lowest_edge {
             None => None,
