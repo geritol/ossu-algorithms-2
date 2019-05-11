@@ -44,11 +44,12 @@ impl Graph {
         let mut lowest_cost_edge_start: Option<i32> = None;
         for node_index in explored_nodes.iter() {
             let lowest_edge = self.get_copy_of_lowest_edge(node_index);
-            if lowest_edge != None {
-                if lowest_cost_edge == None || lowest_edge > lowest_cost_edge {
-                    lowest_cost_edge = lowest_edge;
-                    lowest_cost_edge_start = Some(*node_index);
-                }
+            if lowest_edge == None {
+                continue;
+            }
+            if lowest_cost_edge == None || lowest_edge > lowest_cost_edge {
+                lowest_cost_edge = lowest_edge;
+                lowest_cost_edge_start = Some(*node_index);
             }
         }
         (lowest_cost_edge_start ,lowest_cost_edge)
