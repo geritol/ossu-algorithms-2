@@ -2,6 +2,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 mod edge;
+mod union_find;
 use edge::Edge;
 
 fn main() {
