@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-struct UnionFind {
+pub struct UnionFind {
     pub nodes: HashMap<i32, Option<i32>>
 }
 
@@ -13,6 +13,12 @@ impl UnionFind {
         let node_1_leader = self.find_and_create_if_not_present(node_1);
         let node_2_leader = self.find_and_create_if_not_present(node_2);
         self.update_leader(node_2_leader, Some(node_1_leader));
+    }
+
+    pub fn is_in_different_cluster(&mut self, node_1: i32, node_2: i32 ) -> bool {
+        let node_1_leader = self.find_and_create_if_not_present(node_1);
+        let node_2_leader = self.find_and_create_if_not_present(node_2);
+        node_1_leader != node_2_leader
     }
 
     fn find_and_create_if_not_present(&mut self, node: i32) -> i32 {

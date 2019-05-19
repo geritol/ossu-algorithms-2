@@ -1,4 +1,4 @@
-# Clustergin
+# Clustering
 
 Goal: find out the maximum spacing of a 4-clustering.
 
