@@ -2,6 +2,17 @@ struct Node {
     pub bits: [bool; 24]
 }
 
+fn get_distance_from_bits<const T: usize>(bits: [bool; T]) -> Vec<[bool; T]> {
+    let mut result : Vec<[bool; T]> = Vec::new();
+    for (i, value) in bits.iter().enumerate() {
+        let mut mutation = [true; T];
+        mutation.copy_from_slice(bits[..]);
+        mutation[i] = !mutation[i];
+        result.push(mutation)
+    }
+    result
+}
+
 impl Node {
     pub fn new(string: String) -> Node {
         let mut collector = [true; 24];
@@ -21,14 +32,7 @@ impl Node {
     }
 
     fn generate_within_distance(&self, distance: u8) -> Vec<[bool; 24]> {
-        let mut result : Vec<[bool; 24]> = Vec::new();
-        for (i, value) in self.bits.iter().enumerate() {
-            let mut mutation = [true; 24];
-            mutation.copy_from_slice(&self.bits[..]);
-            mutation[i] = !mutation[i];
-            result.push(mutation)
-        }
-        result
+        get_distance_from_bits(self.bits)
     }
 }
 
